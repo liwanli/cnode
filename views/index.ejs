@@ -1,0 +1,101 @@
+<%#This is header%>
+<% include ./layout/header.ejs %>
+<div id="main">
+  <div class="container">
+    <%#This is sidebar%>
+    <% include ./layout/sidebar.ejs %>
+    <!-- 内容主体 -->
+    <div class="content index">
+      <div class="panel">
+        <!-- 内容头部 -->
+        <div class="title">
+          <a href="?tab=all" class="cell-tab curr">全部</a>
+          <a href="?tab=good" class="cell-tab">精华</a>
+          <a href="?tab=shared" class="cell-tab">分享</a>
+          <a href="?tab=ask" class="cell-tab">问答</a>
+          <a href="?tab=job" class="cell-tab">招聘</a>
+          <a href="?tab=dev" class="cell-tab">客户端测试</a>
+        </div>
+        <div class="m inner">
+          <!-- 内容列表 -->
+          <div class="comment">
+            <%data.forEach(function(item){%>
+            <div class="list">
+              <a href="avatar" class="user-avatar pull-left"><img src="<%=!item.uid.userpic?'/imgs/default.png':'/user_pic/'+item.uid.userpic%>" alt="<%=item.uid.name%>"></a>
+              <p class="visit pull-left">
+                <span class="clk"><%=item.reply.length%></span>
+                <span class="splic">/</span>
+                <span class="Reply"><%=item.quantity%></span>
+              </p>
+              <a href="avatar" class="last_time pull-right">
+              <%if(item.lastreplyUser){%>
+                <img src="<%=item.lastreplyUser.userpic=='default.png'?'/imgs/default.png':'/user_pic/'+item.uid.userpic%>" alt="<%=item.uid.name%>">
+              <%}%>
+              <span>
+                
+                <%if(item.lastreplyTime){%>
+                  <%=time(item.lastreplyTime)%>
+                <%}else{%>
+                  <%=time(item.reTime)%>
+                <%}%>
+
+              </span></a>
+              <div class="commen">
+                <spna class="cont-tip"><%if(item.tab=='top'){%><%=置顶%><%}else if(item.tab=='good'){%><%='精华'%><%}else if(item.tab=='shared'){%><%='分享'%><%}else if(item.tab=='ask'){%><%='问答'%><%}else if(item.tab=='job'){%><%='招聘'%><%}else if(item.tab=='dev'){%><%='测试'%><%}%></spna>
+                <a href="/topic/<%=item._id%>" class="cont"><%=item.title%></a>
+              </div>
+            </div>
+            <%})%>
+          </div>
+          <!-- 分页 -->
+          <div class="pagination">
+            <%if(page==1){%>
+              <li>
+                <a class="btn disabled" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            <%}else{%>
+              <li>
+                <a href="?tab=<%=tab%>" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            <%}%>
+            <%if(page>=4){%>
+              <li><a >...</a></li>
+            <%}%>
+
+                  <%
+                    var p=parseInt(page)+2;
+                    if(p<5){
+                      p=5
+                    }
+                  %>
+            <%for(var i=page-2;i<=p;i++){
+                    if(i<1||i>pageMax){
+                        continue;
+                    }
+            %>
+              <li <%if(i==page){%>
+
+              <%='class=acitve disabled'%>
+              <%}%>><a <%if(i!=page){%> href="?page=<%=i%>" <%}%>><%=i%></a></li>
+            <%}%>
+            <%if(parseInt(page)<pageMax-2){%>
+              <li><a >...</a></li>
+            <%}%>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%#This is footer%>
+<% include ./layout/footer.ejs %>

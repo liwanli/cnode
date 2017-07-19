@@ -1,0 +1,109 @@
+<%#This is header%>
+<% include ../layout/header.ejs %>
+<script src="/js/ueditor/ueditor.config.js"></script>
+<script src="/js/ueditor/ueditor.all.min.js"></script>
+
+<!-- 引入语言包 -->
+<script src="/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<div id="main" >
+  <div class="container">
+    <%#This is sidebar%>
+        <!-- 侧栏 -->
+    <div class="sidebar">
+      <div class="comment">
+        <!-- about -->
+        <div class="panel login">
+            <h3 class="title">Markdown 语法参考</h3>
+            <div class="inner">
+              <ol>
+                <li><tt>### 单行的标题</tt></li>
+                <li><tt>**粗体**</tt></li>
+                <li><tt>`console.log('行内代码')`</tt></li>
+                <li><tt>```js\n code \n```</tt> 标记代码块</li>
+                <li><tt>[内容](链接)</tt></li>
+                <li><tt>![文字说明](图片链接)</tt></li>
+              </ol>
+              <span><a href="https://segmentfault.com/markdown" target="_blank">Markdown 文档</a></span>
+            </div>
+        </div>
+        <div class="panel login">
+            <h3 class="title">Markdown 语法参考</h3>
+            <div class="inner">
+              <ol>
+              <li>尽量把话题要点浓缩到标题里</li>
+              <li>代码含义和报错可在 <a href="http://segmentfault.com/t/node.js">SegmentFault</a> 提问</li>
+              </ol>
+
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 内容主体 -->
+    <div class="content">
+    <!-- 内容头部 -->
+      <div class="title">
+        <ol class="breadcrumb">
+      <li><a href="/">主页</a></li>
+      <li class="active">发布话题</li>
+    </ol>
+      </div>
+      
+        <div class="panel">
+      <div class="inner">
+
+        <form id="create_topic_form" method="post" action="/topic/docreate">
+          <span class="tab-selector">选择版块：</span>
+            <select name="tab" id="tab-value">
+              <option value="">请选择</option>
+                <option value="shared" >分享</option>
+                <option value="ask" >问答</option>
+                <option value="job" >招聘</option>
+                <option value="dev" >客户端测试</option>
+            </select>
+            <!-- warn massage -->
+            <span id="topic_create_warn"></span>
+            <textarea id="title" name="title" rows="1" placeholder="标题字数 10 字以上"></textarea>
+            <div id="layout">
+                <textarea id="editor" name="content" style="min-height:300px" placeholder="请输入内容"></textarea>
+                <input type="submit" class="span-primary submit_btn" data-loading-text="提交中" value="提交">
+          
+            </div>
+        </form>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  // 实例化编辑器 -- 该位置的editor就是上面的文本域的id
+  var ue = UE.getEditor('editor',{});
+  (function () {
+    // 版块选择的检查，必须选择
+    $('#create_topic_form').on('submit', function (e) {
+      var tabValue = $('#tab-value').val();
+      if (!tabValue) {
+        alert('必须选择一个版块！');
+        $('.submit_btn').button('reset');
+        $('.tab-selector').css('color', 'red');
+        return false;
+      }
+    });
+    // END 版块选择的检查，必须选择
+    $('#tab-value').on('change', function () {
+      var $this = $(this);
+      var value = $this.val();
+      var warnMsg = '';
+      $('.tab-selector').css('color', '');
+      if (value === 'job') {
+        warnMsg = '<strong>为避免被管理员删帖，发帖时请好好阅读<a href="http://cnodejs.org/topic/541ed2d05e28155f24676a12" target="_blank">《招聘帖规范》</a></strong>';
+      } else if (value === 'ask') {
+        warnMsg = '<strong>提问时，请遵循 <a href="https://gist.github.com/alsotang/f654af8b1fff220e63fcb44846423e6d" target="_blank">《提问的智慧》</a>中提及的要点，以便您更接收到高质量回复。</strong>'
+      }
+      $('#topic_create_warn').html(warnMsg);
+    });
+  })();
+</script>
+<%#This is footer%>
+<% include ../layout/footer.ejs %>

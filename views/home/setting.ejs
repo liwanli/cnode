@@ -1,0 +1,137 @@
+<%#This is header%>
+<% include ../layout/header.ejs %>
+<script src="/js/jquery.form.js"></script>
+<div id="main" >
+  <div class="container">
+    <%#This is sidebar%>
+        <!-- 侧栏 -->
+		<% include ../layout/sidebar.ejs %>
+    <!-- 内容主体 -->
+    <div class="content">
+    <!-- 内容头部 -->
+      <div class="title">
+      	<ol class="breadcrumb">
+		  <li><a href="/">主页</a></li>
+		  <li class="active">修改信息</li>
+		</ol>
+      </div>
+      <div class="inner clearfix">
+      		<div class="panel">
+		      <div class="form-cont">
+	      	 	<form class="form-horizontal" id="uploadFile" action="/u/settingok" enctype="multipart/form-data" method="post">
+	      			<div class="form-group">
+	      			    <label for="Name" class="col-sm-2 control-label">用户名：</label>
+	      			    <div class="col-sm-7">
+	      			      <input type="type" class="form-control" name="Name" id="Name" placeholder="username" value="<%=userinfo.name%>"  readonly="readonly">
+	      				</div>
+	      			</div>
+	       	 		<div class="form-group">
+	      			    <label for="inputPassword3" class="col-sm-2 control-label">邮箱：</label>
+	      			    <div class="col-sm-7 ">
+	      			      <input type="type" class="form-control" name="Email" id="Email" placeholder="jane.doe@example.com" value="<%=userinfo.email%>"  readonly="readonly">
+	      			    </div>
+	        		</div>
+	      			<div class="form-group user_avatar">
+	      			    <label for="File" class="col-sm-2 control-label">修改头像：</label>
+	      			    <div class="my_avatar col-sm-7">
+	      			      	<span class="img"><img src="<%=!userinfo.userpic?'/imgs/default.png':'/user_pic/'+userinfo.userpic%>" title="<%=userinfo.name%>"></span>
+	      			      	<input type="file" name="file_upload" id="File">
+	      				</div>
+	      			</div>
+	       	 		<div class="form-group">
+	      			    <label for="web" class="col-sm-2 control-label">个人网站：</label>
+	      			    <div class="col-sm-7 ">
+	      			      <input type="type" class="form-control" name="web" id="web" value="<%=userinfo.web%>">
+	      			    </div>
+	        		</div>
+	       	 		<div class="form-group">
+	      			    <label for="address" class="col-sm-2 control-label">所在地点：</label>
+	      			    <div class="col-sm-7 ">
+	      			      <input type="type" class="form-control" name="address" id="address" value="<%=userinfo.address%>">
+	      			    </div>
+	        		</div>
+	       	 		<div class="form-group">
+	      			    <label for="weibo" class="col-sm-2 control-label">微博：</label>
+	      			    <div class="col-sm-7 ">
+	      			      <input type="type" class="form-control" name="weibo" id="weibo" placeholder="e.g. http://weibo.com/cnodejs" value="<%=userinfo.weibo%>">
+	      			    </div>
+	        		</div>
+	       	 		<div class="form-group">
+	      			    <label for="github" class="col-sm-2 control-label">GitHub：</label>
+	      			    <div class="col-sm-7 ">
+	      			      <input type="type" class="form-control" name="github" id="github" placeholder="@username" value="<%=userinfo.github%>" readonly="readonly">
+	      			    </div>
+	      			    <div class="col-sm-10 col-sm-offset-2">
+	      			    	<p>请通过 GitHub 登陆 CNode 来修改此处</p>
+	      			    </div>
+	        		</div>
+	       	 		<div class="form-group">
+	      			    <label for="signature" class="col-sm-2 control-label">个性签名：</label>
+	      			    <div class="col-sm-7 ">
+	      			      <textarea class="input-xlarge" id="signature" name="signature" size="30"><%=userinfo.signature%></textarea>
+	      			    </div>
+	        		</div>
+	        		<input type="hidden" name="userid" value="<%=userinfo._id%>">
+	       	 		<div class="form-group text-center">
+	       	 			<div class="col-sm-7 col-sm-offset-2 text-left">
+	      		  			<button type="submit" id="saveinfo" class="btn btn-primary">保存设置</button>
+	       	 			</div>
+	        		</div>
+	      		</form>
+		      </div>
+	      	</div>
+			<div class="panel">
+		      <h3 class="title">更改密码</h3>
+		      <div class="inner">
+		      	<div class="form-cont">
+					<form class="form-horizontal">
+						<div class="form-group">
+						    <label for="inputPassword1" class="col-sm-2 control-label">当前密码：</label>
+						    <div class="col-sm-7">
+						      <input type="password" class="form-control" id="inputPassword1" placeholder="username">
+						      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+						      <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+						    </div>
+						    <span class="tips">要提示的内容</span>
+						</div>
+			 	 		<div class="form-group">
+						    <label for="inputPassword2" class="col-sm-2 control-label">新密码：</label>
+						    <div class="col-sm-7 ">
+						      <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+						    </div>
+						    <span class="tips">要提示的内容</span>
+			  			</div>
+		        		<input type="hidden" id="userid"  name="userid" value="<%=userinfo._id%>">
+			 	 		<div class="form-group text-center">
+			 	 			<div class="col-sm-7 col-sm-offset-2 text-left">
+					  			<button type="submit" id="savepwd" class="btn btn-primary">更改密码</button>
+			 	 			</div>
+			  			</div>
+					</form>
+				</div>
+		      </div>
+			</div>
+			<div class="panel">
+			     <h3 class="title">Access Token</h3>
+			    <div class="inner">
+			      <div>
+			        <span>字符串：</span>
+			        27e44c49-d852-4bb9-a3ea-d1b905939898
+			      </div>
+			      <div class="code">
+			        <span>二维码：</span>
+			        <span id="access-token-qrcode" title="27e44c49-d852-4bb9-a3ea-d1b905939898"><img alt="Scan me!" src="/imgs/code.png"></span>
+			      </div>
+			    </div>
+			</div>
+
+
+
+ 	  </div>
+
+
+  </div>
+</div>
+<!-- <script src="/js/setting.js"></script> -->
+<%#This is footer%>
+<% include ../layout/footer.ejs %>

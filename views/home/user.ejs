@@ -1,0 +1,46 @@
+<%#This is header%>
+<% include ../layout/header.ejs %>
+<script src="/js/jquery.form.js"></script>
+<div id="main" >
+  <div class="container">
+    <%#This is sidebar%>
+        <!-- 侧栏 -->
+		<% include ../layout/sidebar.ejs %>
+    <!-- 内容主体 -->
+    <div class="content">
+  			<div class="panel">
+			    <!-- 内容头部 -->
+			      <div class="title">
+			      	<ol class="breadcrumb">
+					  <li><a href="/">主页</a></li>
+					  <li class="active">修改信息</li>
+					</ol>
+			      </div>
+				<div class="inner userinfo">
+      		      <div class="user_big_avatar">
+      		        <img src="<%=!data.userpic?'/imgs/default.png':'/user_pic/'+data.userpic%>" title="<%=data.name%>">
+      		      </div>
+      		      <a class="dark"><%=data.name%></a>
+      		      <div class="user_profile">
+      		        <ul class="unstyled">
+      		          <span class="big"><%=data.gold%></span> 积分
+        		          <li>
+      		            <i class="fa fa-lg fa-fw fa-github"></i>
+      		            <a class="dark" href="https://github.com/<%=data.name%>" target="_blank">
+      		              @<%=data.name%>
+      		            </a>
+      		          </li>
+      		          
+      		          
+      		        </ul>
+      		      </div>
+      		      <p class="col_fade">注册时间 <%=time(data.regtime)%> 天前</p>
+      		      </div>
+	      	</div>
+
+
+  </div>
+</div>
+<!-- <script src="/js/setting.js"></script> -->
+<%#This is footer%>
+<% include ../layout/footer.ejs %>

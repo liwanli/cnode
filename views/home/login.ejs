@@ -1,0 +1,69 @@
+<%#This is header%>
+<% include ../layout/header.ejs %>
+
+<div id="main">
+  <div class="container">
+        <!-- 侧栏 -->
+    <div class="sidebar">
+      <div class="comment">
+        <!-- about -->
+        <div class="panel">
+            <h3 class="title">关于</h3>
+            <div class="inner">
+              <p>CNode：Node.js专业中文社区</p>
+              <div class="login"><p>在这里您可以：</p>
+                  <ul>
+                    <li><a href="">向别人提出你遇到的问题</a></li>
+                    <li><a href="">帮助遇到问题的人</a></li>
+                    <li><a href="">分享自己的知识</a></li>
+                    <li><a href="">和其它人一起进步</a></li>
+                  </ul>
+                
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- 内容主体 -->
+    <div class="content">
+    <!-- 内容头部 -->
+      <div class="title">
+          <ol class="breadcrumb">
+            <li><a href="/">主页</a></li>
+            <li class="active">登录</li>
+          </ol>
+      </div>
+      <div class="panel clearfix">
+        <div class="form-cont">
+         	<form class="form-horizontal" onsubmit="return false">
+            <div class="form-group"></div>
+        		<div class="form-group has-success has-error">
+        		    <label for="exampleInputName" class="col-sm-2 control-label">用户名：</label>
+        		    <div class="col-sm-7">
+        		      <input type="text" class="form-control" id="exampleInputName" placeholder="username">
+        		      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+        		    </div>
+                <span class="tips"></span>
+        		</div>
+        	 		<div class="form-group">
+        		    <label for="inputPassword1" class="col-sm-2 control-label">密码：</label>
+        		    <div class="col-sm-7 ">
+        		      <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
+        		    </div>
+                <span class="tips"></span>
+        			</div>
+        	 		<div class="form-group text-left">
+        	 		<label class="col-sm-2"></label>
+          			<button type="submit" id="login" class="btn btn-primary">点击登录</button>
+          			<button type="submit" class="btn btn-primary">通过 GitHub 登录</button>
+          			<a href="" class="wjmm">忘记密码</a>
+        			</div>
+        	</form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%#This is footer%>
+<% include ../layout/footer.ejs %>
+<script type="text/javascript" src="/js/login.js"></script>

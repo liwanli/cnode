@@ -1,0 +1,77 @@
+<%#This is header%>
+<% include ../layout/header.ejs %>
+
+<div id="main" >
+  <div class="container">
+    <%#This is sidebar%>
+        <!-- 侧栏 -->
+    <div class="sidebar">
+      <div class="comment">
+        <!-- about -->
+        <div class="panel">
+            <h3 class="title">关于</h3>
+            <div class="inner">
+              <p>CNode：Node.js专业中文社区</p>
+              <div class="login"><p>在这里您可以：</p>
+                  <ul>
+                    <li><a href="">向别人提出你遇到的问题</a></li>
+                    <li><a href="">帮助遇到问题的人</a></li>
+                    <li><a href="">分享自己的知识</a></li>
+                    <li><a href="">和其它人一起进步</a></li>
+                  </ul>
+                
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 内容主体 -->
+    <div class="content">
+    <!-- 内容头部 -->
+      <div class="title">
+      	<ol class="breadcrumb">
+		  <li><a href="/">主页</a></li>
+		  <li class="active">验证邮箱</li>
+		</ol>
+      </div>
+      <div class="inner">
+        <div class="panel">
+      			<div class="active-cont">
+          			<%if(msg==='ok'){%>
+
+          				<p>激活成功！<a href="" target="_blank"> <time>3</time> 秒后自动跳转...</a></p>
+
+                <%}else if(msg==='no'){%>
+
+                  <p>等待激活，<a href="http://email.qq.com" target="_blank">点击验证邮箱</a></p>
+
+                <%}else{%>
+                  
+                  <p>激活失败！<a href="" target="_blank">联系管理</a></p>
+          			
+          			<%}%>
+              <input type="hidden" value="<%=msg%>">
+            </div>
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+<script>
+// 邮箱验证倒计时：
+(function() {
+    if ($('.active-cont').find('[type="hidden"]').val() === 'ok') {
+        var i = 3;
+        var timer = setInterval(function() {
+            $('.active-cont').find('time').html(--i);
+            if ($('.active-cont').find('time').html() == 0) {
+                window.location.href = "/u/login";
+                clearInterval(timer);
+            }
+        }, 1000)
+    }
+})()
+</script>
+<%#This is footer%>
+<% include ../layout/footer.ejs %>

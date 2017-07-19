@@ -1,0 +1,234 @@
+<%#This is header%>
+<% include ../layout/header.ejs %>
+<script src="/js/ueditor/ueditor.config.js"></script>
+<script src="/js/ueditor/ueditor.all.min.js"></script>
+<!-- 引入语言包 -->
+<script src="/js/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<div id="main" >
+  <div class="container">
+    <%#This is sidebar%>
+    <!-- 侧栏 -->
+    <div class="sidebar">
+      <div class="comment">
+        <!-- 用户未登录版块 -->
+        <%if(!userinfo){%>
+        <div class="panel user">
+            <div class="inner">
+              <p>CNode：Node.js专业中文社区</p>
+              <div>
+                您可以 <a href="/u/login">登录</a>或<a href="/u/reg">注册</a>, 也可以
+                <a href="" class="span-info">通过 GitHub 登录</a>
+              </div>
+            </div>
+        </div>
+            <%}else{%>
+        <!-- 用户已登录版块 -->
+        <div class="panel">
+            <h3 class="title">作者</h3>
+            <div class="inner">
+              <div class="user_card">
+                  <div>
+                    <a class="user_avatar" href="/u/<%=articleData[0].uid.name%>">
+                      <img src="<%=!articleData[0].uid.userpic?'/imgs/default.png':'/user_pic/'+articleData[0].uid.userpic%>" title="<%=articleData[0].uid.name%>">
+                    </a>
+                    <span class="user_name">
+                        <a class="dark" href="/u/<%=articleData[0].uid.name%>"><%=articleData[0].uid.name%></a>
+                    </span>
+                    <div class="board clearfix">
+                      <div class="floor">
+                        <span class="big">积分: <%=articleData[0].uid.gold%> </span>
+                      </div>
+                    </div>
+                    <div class="space clearfix"></div>
+                    <span class="signature">
+                        “<%=articleData[0].uid.signature%>”
+                    </span>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <%}%>
+        <div class="panel">
+            <div class="inner ads">
+                <a href="" target="_blank">
+                  <img src="/imgs/ads01.png">
+                </a>
+                <a href="" target="_blank">
+                  <img src="/imgs/ads02.png">
+                </a>
+                <a href="" data-label="shiyanlou">
+                  <img src="/imgs/ads03.png">
+                </a>
+                <a href="" data-label="100offer">
+                  <img src="/imgs/ads04.png">
+                </a>
+            </div>
+        </div>
+        <!-- 作者其它话题 -->
+        <div class="panel">
+            <h3 class="title">作者其它话题</h3>
+            <div class="inner">
+              <ul class="unstyled">
+                  <li>
+                      <p>
+                        <a class="dark unitem" href="/" title="">前阵子做项目封装的处理excel的模块</a>
+                      </p>
+                  </li>
+                  <li>
+                      <p>
+                        <a class="dark unitem" href="/" title="">分享用superAgent去爬取soku网上的王者荣耀视频</a>
+                      </p>
+                  </li>
+              </ul>
+            </div>
+        </div>
+        <!-- 无人回复的话题 -->
+        <div class="panel">
+            <h3 class="title">无人回复的话题</h3>
+            <div class="inner">
+              
+              <ul class="unstyled">
+                  <li>
+                      <p>
+                        <a class="dark unitem" href="/" title="">前阵子做项目封装的处理excel的模块</a>
+                      </p>
+                  </li>
+                  <li>
+                      <p>
+                        <a class="dark unitem" href="/" title="">分享用superAgent去爬取soku网上的王者荣耀视频</a>
+                      </p>
+                  </li>
+              </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 内容主体 -->
+    <div class="content">
+      <div class="panel">
+          <div class="topic_header">
+            <span class="topic_full_title"><%=articleData[0].title%></span>
+            <div class="changes">
+                <span>发布于 <%=time(articleData[0].reTime)%></span>
+                <span>作者 <a href="<%=articleData[0].uid.name%>"><%=articleData[0].uid.name%></a></span>
+                <span><%=articleData[0].quantity%> 次浏览</span>
+                <span> 来自<%if(articleData[0].tab==='top'){%><%=置顶%><%}else if(articleData[0].tab==='good'){%>精华<%}else if(articleData[0].tab==='shared'){%>分享<%}else if(articleData[0].tab==='ask'){%>问答<%}else if(articleData[0].tab==='job'){%>招聘<%}else if(articleData[0].tab==='dev'){%>测试<%}%></span>
+                <input class="span-common span-success pull-right collect_btn" type="submit" value="收藏" action="collect">
+            </div>
+            
+            <div id="manage_topic">
+                <a href="/topic/<%=articleData._id%>/edit">
+                  <i class="fa fa-lg fa-pencil-square-o" title="编辑">编辑</i></a>
+                <a href="javascript:;" data-id="<%=articleData._id%>" class="delete_topic_btn">
+                   <i class="fa fa-lg fa-trash" title="删除">删除</i></a>
+            </div>
+          </div>
+          <div class="inner topic">
+            <div class="topic_content">
+              <div class="markdown-text">
+                <%-articleData[0].content%>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="panel replyAll">
+          <h3 class="title"> <%=replyData.length%> 回复</h3>
+          <%replyData.forEach(function(item){%>
+          <div class="cell reply_area reply_item" reply_id="<%=item.tid%>" reply_to_id="" id="<%=item.tid%>">
+              <div class="author_content">
+              <a class="user_avatar" href="/u/<%=item.name%>"">
+                <img src="<%=!item.uid.userpic?'/imgs/default.png':'/user_pic/'+item.uid.userpic%>" title="<%=item.name%>">
+              </a>
+                <div class="user_info">
+                  <a class="dark reply_author" href="/user/<%=item.name%>"><%=item.uid.name%></a>
+                  <a class="reply_time" href="#<%=item._id%>"><%=item.lou%>楼•<%=time(item.reTime)%></a>
+                  <%if(articleData[0].uid.name===item.uid.name){%>
+                  <span class="reply_by_author">作者</span>
+                  <%}%>
+                </div>
+                <div class="user_action">
+                  <span>
+                    <i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢">喜欢</i>
+                    <span class="up-count"></span>
+                  </span>
+                  <a href="/reply/<%=item._id%>/edit" class="edit_reply_btn">
+                    <i class="fa fa-pencil-square-o" title="编辑">编辑</i>
+                  </a>
+                  <a href="javascript:void(0);" class="delete_reply_btn">
+                    <i class="fa fa-trash" title="删除">删除</i>
+                  </a>
+                  <span>
+                      <i class="fa fa-reply reply2_btn" title="回复">回复</i>
+                  </span>
+                </div>
+              </div>
+              <div class="reply_content from-liwanli">
+                <div class="markdown-text"><p><%-item.content%></p></div>
+              </div>
+          </div>
+          <%})%>
+      </div>
+
+      <div class="panel">
+          <h3 class="title">添加回复</h3>
+          <div class="inner reply">
+            <form id="reply_form" method="post">
+
+              <div class="markdown_editor in_editor">
+                <div class="markdown_in_editor">
+                 
+                <textarea id="editor" name="content" style="min-height:300px" placeholder="请输入内容"></textarea>
+
+
+                  <div class="editor_buttons">
+                    <input class="span-primary submit_btn" type="submit" data-loading-text="回复中.." value="回复">
+                  </div>
+                </div>
+
+              </div>
+
+              <input type="hidden" name="tid" id="_csrf" value="<%=articleData[0]._id%>">
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    // 实例化编辑器 -- 该位置的editor就是上面的文本域的id
+  var ue = UE.getEditor('editor',{});
+  $('.reply').find('.submit_btn[type="submit"]').on('click',function(){
+    $.ajax({
+      type:'POST',
+      url:"/topic/<%=articleData[0]._id%>/reply",
+      data:{
+        tid: $('.reply').find('[name="tid"]').val(),
+        content: $('.reply').find('[name="content"]').val()
+      },
+      // dataType:"json",
+      success: function(succ){
+        if (succ=="ok") {
+          window.location.href="/u/login";
+        }else{
+              var newT = succ.reTime
+              console.log(newT)
+                  var datahtml= '<div class="cell reply_area reply_item" reply_id="" reply_to_id="" id=""><div class="author_content"><a class="user_avatar" href="/u/"><img src="/user_pic/<%if(userinfo){%><%=userinfo.userpic%><%}%>" title=""></a><div class="user_info"><a class="dark reply_author" href="/user/">'+succ.name+'</a><a class="reply_time" href="#"> '+succ.lou+'楼•<%=time('+succ.reTime+')%></a><%if(articleData[0].uid.name==='+succ.name+'){%><span class="reply_by_author">作者</span><%}%></div><div class="user_action"><span><i class="fa up_btn fa-thumbs-o-up invisible" title="喜欢">喜欢</i><span class="up-count"></span></span><a href="/reply//edit" class="edit_reply_btn">  <i class="fa fa-pencil-square-o" title="编辑">编辑</i></a><a href="javascript:void(0);" lass="delete_reply_btn">  <i class="fa fa-trash" title="删除">删除</i></a><span><i class="fa fa-reply reply2_btn" title="回复">回复</i></span></div></div><div class="reply_content from-liwanli"><div class="markdown-text"><p>'+succ.content+'</p></div></div></div>'
+                
+                  $('.replyAll').append(datahtml)
+
+        }
+        console.log(succ);
+      },
+      error: function(err){
+        console.log(err);
+      }
+    })
+    return false;
+  }) 
+</script>
+<!-- <script src="/js/"></script> -->
+<%#This is footer%>
+<% include ../layout/footer.ejs %>

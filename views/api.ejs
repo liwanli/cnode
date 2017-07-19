@@ -1,0 +1,29 @@
+<%#This is header%>
+<% include ./layout/header.ejs %>
+
+<div id="main" >
+  <div class="container">
+    <%#This is sidebar%>
+        <!-- 侧栏 -->
+	    <% include ./layout/sidebar.ejs %>
+
+    <!-- 内容主体 -->
+    <div class="content">
+    <!-- 内容头部 -->
+      <div class="title">
+      	<ol class="breadcrumb">
+		  <li><a href="/">主页</a></li>
+		  <li class="active">登录</li>
+		</ol>
+      </div>
+      <div class="inner">
+			<div class="login-cont">
+ 				<h1>api</h1>
+			</div>
+       </div>
+    </div>
+  </div>
+</div>
+<script src="/js/reg.js"></script>
+<%#This is footer%>
+<% include ./layout/footer.ejs %>

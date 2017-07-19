@@ -1,0 +1,86 @@
+<%#This is header%>
+<% include ../layout/header.ejs %>
+
+<div id="main" ng-app="app" ng-controller="cont">
+  <div class="container">
+    <%#This is sidebar%>
+        <!-- 侧栏 -->
+    <div class="sidebar">
+      <div class="comment">
+        <!-- about -->
+        <div class="panel login">
+            <h3 class="title">关于</h3>
+            <div class="inner">
+              <p>CNode：Node.js专业中文社区</p>
+              <div>
+                在这里您可以：
+                	<ul>
+                		<li><a href="">通过 GitHub 登录</a></li>
+                		<li><a href="">通过 GitHub 登录</a></li>
+                		<li><a href="">通过 GitHub 登录</a></li>
+                		<li><a href="">通过 GitHub 登录</a></li>
+                	</ul>
+                
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 内容主体 -->
+    <div class="content">
+    <!-- 内容头部 -->
+      <div class="title">
+           	<ol class="breadcrumb">
+      		  <li><a href="/">主页</a></li>
+      		  <li class="active">登录</li>
+      		</ol>
+      </div>
+      <div class="inner">
+			<div class="login-cont">
+			 	<form class="form-horizontal" onsubmit="return false">
+			 	<div class="form-group"><%#=errMsg%></div>
+					<div class="form-group has-success has-error">
+					    <label for="exampleInputName" class="col-sm-2 control-label">用户名：</label>
+					    <div class="col-sm-7">
+					      <input type="type" class="form-control" id="exampleInputName" placeholder="username">
+					      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+						  <span id="inputError2Status" class="sr-only">(success)</span>
+					    </div>
+					    <span class="tips">要提示的内容</span>
+					</div>
+		 	 		<div class="form-group">
+					    <label for="inputPassword1" class="col-sm-2 control-label">密码：</label>
+					    <div class="col-sm-7 ">
+					      <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
+					    </div>
+					    <span class="tips">要提示的内容</span>
+		  			</div>
+		 	 		<div class="form-group">
+					    <label for="inputPassword2" class="col-sm-2 control-label">确认密码：</label>
+					    <div class="col-sm-7 ">
+					      <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+					    </div>
+					    <span class="tips">要提示的内容</span>
+		  			</div>
+		 	 		<div class="form-group">
+					    <label for="inputPassword3" class="col-sm-2 control-label">邮箱：</label>
+					    <div class="col-sm-7 ">
+					      <input type="type" class="form-control" id="exampleInputEmail" placeholder="jane.doe@example.com">
+					    </div>
+					    <span class="tips">要提示的内容</span>
+		  			</div>
+		 	 		<div class="form-group text-center">
+		 	 			<div class="col-sm-10">
+				  			<button type="submit" id="reg" class="btn btn-primary">提交注册</button>
+		 	 			</div>
+		  			</div>
+				</form>
+			</div>
+       </div>
+    </div>
+  </div>
+</div>
+<script src="/js/reg.js"></script>
+<%#This is footer%>
+<% include ../layout/footer.ejs %>

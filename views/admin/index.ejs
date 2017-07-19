@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="myapp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>student management system</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- 自定义样式覆盖bootstrap的css样式 -->
+	<style>
+		.self-table tbody tr td,.self-table thead tr th{
+			text-align:center;
+			vertical-align:middle;
+		}
+		nav {
+			text-align:center;
+		}
+	</style>
+
+  </head>
+  <body ng-controller="cont">
+
+  <!-- Bootstrap进行布局时的容器 -->
+	<div class="container">
+		<!-- 导航菜单 -->
+		<nav class="navbar navbar-default">
+
+
+		<ul class="nav navbar-nav">
+            <li class="active"><a href="#">首页</a></li>
+            <li><a data-toggle="modal" data-target="#myModal">添加新用户</a></li>
+          </ul>
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		    </div>
+
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <form class="navbar-form navbar-right">
+	  		        <div class="form-group">
+	  		          <label for="SearchInputName"></label>
+			          <input type="text" class="form-control" id="SearchInputName" ng-model="SearchInputName" placeholder="Search">
+			        </div>
+			        <button type="submit" class="btn btn-primary" ng-click="SearchBtn()">查找</button>
+		      </form>
+		    </div>
+		</nav>
+		<!-- 表格 -->
+		<table class="table table-bordered table-hover self-table">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>用户名</th>
+					<th>密码</th>
+					<th>电子邮箱</th>
+					<th>权限</th>
+					<th>最后登录时间</th>
+					<th>操作</th>
+				</tr>	
+			</thead>
+			<tbody>
+					<tr ng-repeat="item in data">
+						<td>{{$index}}</td>
+						<td>{{item.name}}</td>
+						<td>{{item.sex}}</td>
+						<td>{{item.class}}</td>
+						<td>{{item.age}}</td>
+						<td>{{item.tel}}</td>
+						<td>
+							<button class="btn btn-success btn-sm edit" ng-click="gitId(1)" data-toggle="modal" data-target="#myModal" ng-value="item._id">编辑</button>
+							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bs-example-modal-sm" ng-value="item._id" ng-click="gitId(0)" >删除</button>
+						</td>
+						
+					</tr>
+			</tbody>
+		</table>
+		<nav aria-label="Page navigation">
+		  <ul class="pagination pagination-lg">
+		    <li class="disabled">
+		      <a href="#" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		    <li class="active"><a href="#">1</a></li>
+		    <li><a href="#">2</a></li>
+		    <li><a href="#">3</a></li>
+		    <li><a href="#">4</a></li>
+		    <li><a href="#">5</a></li>
+		    <li><a href="#">6</a></li>
+		    <li><a href="#">7</a></li>
+		    <li><a href="#">8</a></li>
+		    <li><a href="#">9</a></li>
+		    <li><a href="#">10</a></li>
+		    <li>
+		      <a href="#" aria-label="Next">
+		        <span aria-hidden="true">&raquo;</span>
+		      </a>
+		    </li>
+		  </ul>
+		</nav>
+	</div>
+	<!-- Add||Edit Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">学员信息</h4>
+	      </div>
+	  		<form>
+		      <div class="modal-body">
+				  <div class="form-group">
+				    <label for="exampleInputName">姓名：</label>
+				    <input type="text"  required class="form-control" name="username" id="exampleInputName" placeholder="mesa">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputSex">性别</label>
+				    <input type="text" required class="form-control" name="usersex" id="exampleInputSex" placeholder="男">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputAge">年龄</label>
+				    <input type="text" required class="form-control" name="userage" id="exampleInputAge" placeholder="20">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputClass">班级</label>
+				    <input type="text" required class="form-control" name="userclass" id="exampleInputClass" placeholder="H5-27">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputClass">电话</label>
+				    <input type="text" required class="form-control" name="usertel" id="exampleInputTel" placeholder="13388888888">
+				  </div>
+				    <input type="hidden" name="userid" id="exampleInputid">
+
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		        <button type="submit" class="btn btn-primary" id="save">保存</button>
+		      </div>
+			</form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Del modal -->
+	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+	  <div class="modal-dialog modal-sm" role="document">
+	    <div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">删除</h4>
+			</div>
+			<div class="modal-body text-center">
+				您确定要删除本条信息吗？
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="submit" class="btn btn-primary" id="del">删除</button>
+			</div>
+	    </div>
+	  </div>
+	</div>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+	<script>
+	// angular
+	var objId;
+	var app = angular.module('myapp',[]);
+	app.controller('cont',function($scope,$http){
+		$http({
+			method: 'GET',
+			url: '/admin/data'
+		}).then(function successCallback(response) {
+			angular.forEach(response.data,function(item,index){
+				$scope.data = item;
+			})
+		}, function errorCallback(response) {
+				console.log(response);
+		});
+		$scope.SearchBtn = function(){
+			$http({
+				method: 'POST',
+				url:'/admin/seach',
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+				data:$scope.SearchInputName,
+			}).then(function successCallback(response) {
+				$scope.data=response.data;
+			}, function errorCallback(response) {
+				console.log(response);	
+			});
+		}
+
+
+
+
+		// $scope.$watch("newData",function(){
+		// 		console.log("OK");
+		// 		$scope.data = newData;
+		// },true);
+		// console.log(newData)
+		$scope.gitId = function(status){
+			objId = $(this)[0].item._id;
+
+			if(status){
+				$http({
+					method: 'POST',
+					data:$(this)[0].item._id,
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+					url: '/admin/edit'
+				}).then(function successCallback(response) {
+					console.log(response.data[0])
+
+
+					$('#exampleInputid').val(response.data[0]._id);
+					$('#exampleInputName').val(response.data[0].name);
+					$('#exampleInputSex').val(response.data[0].sex);
+					$('#exampleInputAge').val(response.data[0].age);
+					$('#exampleInputClass').val(response.data[0].class);
+					$('#exampleInputTel').val(response.data[0].tel);
+			}, function errorCallback(response) {
+						
+				});
+			}
+		}
+	})
+	$(function(){
+		$('#save').on('click',function(){
+			var addData={
+				"userid":$('#exampleInputid').val(),
+				"username":$('#exampleInputName').val(),
+				"usersex":$('#exampleInputSex').val(),
+				"userage":$('#exampleInputAge').val(),
+				"userclass":$('#exampleInputClass').val(),
+				"usertel":$('#exampleInputTel').val()
+			}
+			$.ajax({
+				type:'POST',
+				data:addData,
+				dataType:'json',
+				url:"/admin/adduser",
+				success:function(result){
+					console.log(result);
+				},
+				err:function(err){
+					console.log(err.status);
+				}
+			})	
+		})
+		$('#del').on('click',function(){
+			$.post({
+				url:'/admin/del',
+				data:{uid:objId},
+				dataType:'json',
+				success:function(result){
+					console.log(result)
+				}
+			})
+		})
+	})
+	</script>
+  </body>
+</html>
